@@ -1,5 +1,6 @@
 import React from 'react';
-import Form from './components/Form/Form';
+import Card from './components/Card';
+import Form from './components/Form';
 
 class App extends React.Component {
   componentDidMount() {
@@ -10,6 +11,7 @@ class App extends React.Component {
     return (
       <div>
         <Form />
+        <Card />
       </div>
     );
   }
