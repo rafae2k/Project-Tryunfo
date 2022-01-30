@@ -1,16 +1,18 @@
 import React from 'react';
+import { v4 as uuid } from 'uuid';
 import Card from './components/Card';
 import Form from './components/Form';
-import './App.css';
 import initialState from './initialState';
+import './App.css';
 
 class App extends React.Component {
   constructor() {
     super();
 
     this.onInputChange = this.onInputChange.bind(this);
+    this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
 
-    this.state = { ...initialState };
+    this.state = { ...initialState, cards: [] };
   }
 
   componentDidMount() {
@@ -20,6 +22,7 @@ class App extends React.Component {
   onInputChange({ target }) {
     const { name } = target;
     const value = (target.type === 'checkbox') ? target.checked : target.value;
+    if (value) this.setState({ hasTrunfo: target.checked });
     this.setState({
       [name]: value,
     }, this.formValidation);
@@ -27,7 +30,34 @@ class App extends React.Component {
 
   onSaveButtonClick(event) {
     event.preventDefault();
-    console.log(event);
+    const { cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+      hasTrunfo,
+    } = this.state;
+
+    const createCard = { cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+      hasTrunfo,
+      id: uuid(),
+    };
+
+    this.setState(({ cards: prevCardList }) => ({
+      cards: [...prevCardList, createCard],
+    }));
+
+    this.setState({ ...initialState });
   }
 
   formValidation() {
