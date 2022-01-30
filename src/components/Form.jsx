@@ -4,29 +4,6 @@ import Input from './Input';
 import './Form.css';
 
 class Form extends Component {
-  constructor() {
-    super();
-    this.onInputChange = this.onInputChange.bind(this);
-
-    this.state = {
-      cardName: '',
-      cardDescription: '',
-      cardAttr1: '',
-      cardAttr2: '',
-      cardAttr3: '',
-      cardImage: '',
-      cardRare: '',
-      cardTrunfo: '',
-      hasTrunfo: false,
-      isSaveButtonDisabled: true,
-      rafinho: '',
-    };
-  }
-
-  onInputChange(event) {
-    console.log(event);
-  }
-
   render() {
     const {
       cardName,
@@ -44,30 +21,26 @@ class Form extends Component {
     } = this.props;
 
     return (
-      <div className="form">
-        {/* <Input
+      <form action="" className="form">
+
+        <Input
           type="text"
           name="cardName"
           label="Nome da Carta:"
           test="name-input"
           value={ cardName }
-          onChange={ this.onInputChange }
-        /> */}
+          onInputChange={ onInputChange }
+        />
 
-        <label htmlFor="">
-          <input type="text" name="rafinho" id="" onChange={ onInputChange }/>
-        </label>
-
-        {/* <label htmlFor="card-description">
+        <label htmlFor="card-description">
           Descrição:
           <textarea
             name="cardDescription"
-            id=""
             cols="30"
             rows="5"
             data-testid="description-input"
             value={ cardDescription }
-            onChange={ this.onInputChange }
+            onChange={ onInputChange }
           />
         </label>
 
@@ -77,7 +50,8 @@ class Form extends Component {
           label="Atributo 1:"
           test="attr1-input"
           value={ cardAttr1 }
-          onChange={ onInputChange }
+          onInputChange={ onInputChange }
+          pattern="[0-9]*"
         />
 
         <Input
@@ -86,7 +60,7 @@ class Form extends Component {
           label="Atributo 2:"
           test="attr2-input"
           value={ cardAttr2 }
-          onChange={ onInputChange }
+          onInputChange={ onInputChange }
         />
 
         <Input
@@ -95,7 +69,7 @@ class Form extends Component {
           label="Atributo 3:"
           test="attr3-input"
           value={ cardAttr3 }
-          onChange={ onInputChange }
+          onInputChange={ onInputChange }
         />
 
         <Input
@@ -104,7 +78,7 @@ class Form extends Component {
           label="Link para imagem:"
           test="image-input"
           value={ cardImage }
-          onChange={ onInputChange }
+          onInputChange={ onInputChange }
         />
 
         <label htmlFor="rarity">
@@ -123,15 +97,17 @@ class Form extends Component {
           </select>
         </label>
 
-        <Input
-          type="checkbox"
-          name="cardTrunfo"
-          label="Super Trunfo:"
-          test="trunfo-input"
-          value={ cardTrunfo }
-          onChange={ onInputChange }
-          checked={ hasTrunfo }
-        />
+        <label htmlFor="cardTrunfo">
+          Super Trunfo:
+          <input
+            type="checkbox"
+            name="cardTrunfo"
+            data-testid="trunfo-input"
+            value={ cardTrunfo }
+            onChange={ onInputChange }
+            checked={ cardTrunfo }
+          />
+        </label>
 
         <button
           type="submit"
@@ -140,8 +116,8 @@ class Form extends Component {
           onClick={ onSaveButtonClick }
         >
           Salvar
-        </button> */}
-      </div>
+        </button>
+      </form>
     );
   }
 }
@@ -149,9 +125,9 @@ class Form extends Component {
 Form.propTypes = {
   cardName: PropTypes.string,
   cardDescription: PropTypes.string,
-  cardAttr1: PropTypes.string,
-  cardAttr2: PropTypes.string,
-  cardAttr3: PropTypes.string,
+  cardAttr1: PropTypes.number,
+  cardAttr2: PropTypes.number,
+  cardAttr3: PropTypes.number,
   cardImage: PropTypes.string,
   cardRare: PropTypes.string,
   cardTrunfo: PropTypes.bool,
