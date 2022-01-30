@@ -22,7 +22,7 @@ class Form extends Component {
 
     return (
       <form action="" className="form">
-
+        <h2>Adicionar nova carta</h2>
         <Input
           type="text"
           name="cardName"
