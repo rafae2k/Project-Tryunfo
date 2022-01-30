@@ -38,15 +38,15 @@ class Card extends Component {
   }
 }
 
-// Card.propTypes = {
-//   cardName: PropTypes.string,
-//   cardDescription: PropTypes.string,
-//   cardAttr1: PropTypes.number,
-//   cardAttr2: PropTypes.number,
-//   cardAttr3: PropTypes.number,
-//   cardImage: PropTypes.string,
-//   cardRare: PropTypes.string,
-//   cardTrunfo: PropTypes.bool,
-// }.isRequired;
+Card.propTypes = {
+  cardName: PropTypes.string,
+  cardDescription: PropTypes.string,
+  cardAttr1: PropTypes.number,
+  cardAttr2: PropTypes.number,
+  cardAttr3: PropTypes.number,
+  cardImage: PropTypes.string,
+  cardRare: PropTypes.string,
+  cardTrunfo: PropTypes.bool,
+}.isRequired;
 
 export default Card;
