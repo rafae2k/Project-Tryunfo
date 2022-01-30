@@ -14,7 +14,7 @@ class Form extends Component {
       cardImage,
       cardRare,
       cardTrunfo,
-      hasTrunfo,
+      // hasTrunfo,
       isSaveButtonDisabled,
       onInputChange,
       onSaveButtonClick,
@@ -51,7 +51,7 @@ class Form extends Component {
           test="attr1-input"
           value={ cardAttr1 }
           onInputChange={ onInputChange }
-          pattern="[0-9]*"
+          id="attr1"
         />
 
         <Input
