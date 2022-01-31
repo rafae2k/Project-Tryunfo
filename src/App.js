@@ -5,6 +5,7 @@ import Form from './components/Form';
 import initialState from './initialState';
 
 import './App.css';
+import Deck from './components/Deck';
 
 class App extends React.Component {
   constructor() {
@@ -12,6 +13,7 @@ class App extends React.Component {
 
     this.onInputChange = this.onInputChange.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
+    this.removeCard = this.removeCard.bind(this);
 
     this.state = { ...initialState, cards: [], hasTrunfo: false };
   }
@@ -93,8 +95,17 @@ class App extends React.Component {
     return isValid;
   }
 
-  render() {
+  removeCard(cardId) {
     const { cards } = this.state;
+    const { cardTrunfo } = cards.find(({ id }) => id === cardId);
+
+    this.setState(({ hasTrunfo: prevHasTrunfo }) => ({
+      cards: cards.filter(({ id }) => id !== cardId),
+      hasTrunfo: cardTrunfo ? !prevHasTrunfo : prevHasTrunfo,
+    }));
+  }
+
+  render() {
     return (
       <>
         <div className="card-builder">
@@ -107,11 +118,8 @@ class App extends React.Component {
           <Card { ...this.state } />
 
         </div>
-        <div className="card-deck">
-          Todas as Cartas
-          {cards.length > 0 ? cards.map((card) => (<Card { ...card } key={ card.id } />))
-            : <div />}
-        </div>
+
+        <Deck { ...this.state } onRemoveCardClick={ this.removeCard } />
       </>
     );
   }
