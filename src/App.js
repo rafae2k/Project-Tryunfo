@@ -38,12 +38,7 @@ class App extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
-      // hasTrunfo,
     } = this.state;
-
-    if (cardTrunfo) {
-      this.setState({ hasTrunfo: cardTrunfo });
-    }
 
     const createCard = { cardName,
       cardDescription,
@@ -60,11 +55,13 @@ class App extends React.Component {
       cards: [...prevCardList, createCard],
     }));
 
+    if (cardTrunfo) this.setState({ hasTrunfo: true });
+
     this.setInitialState();
   }
 
-  setInitialState(hasTrunfo) {
-    this.setState({ ...initialState, hasTrunfo });
+  setInitialState() {
+    this.setState({ ...initialState });
   }
 
   formValidation() {
