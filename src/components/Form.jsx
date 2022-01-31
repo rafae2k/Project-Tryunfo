@@ -13,34 +13,34 @@ class Form extends Component {
       cardAttr3,
       cardImage,
       cardRare,
-      // cardTrunfo,
-      // hasTrunfo,
+      cardTrunfo,
+      hasTrunfo,
       isSaveButtonDisabled,
       onInputChange,
       onSaveButtonClick,
     } = this.props;
 
-    function HandleTrunfo(props) {
-      if (props.hasTrunfo) {
-        return (
-          <p data-testid="trunfo-input">
-            Você já tem um Super Trunfo em seu baralho
-          </p>);
-      }
-      return (
-        <label htmlFor="cardTrunfo">
-          <input
-            type="checkbox"
-            name="cardTrunfo"
-            data-testid="trunfo-input"
-            value={ props.cardTrunfo }
-            onChange={ props.onInputChange }
-            checked={ props.cardTrunfo }
-          />
-          Super Trunfo:
-        </label>
-      );
-    }
+    // function HandleTrunfo(props) {
+    //   if (props.hasTrunfo) {
+    //     return (
+    //       <p>
+    //         Você já tem um Super Trunfo em seu baralho
+    //       </p>);
+    //   }
+    //   return (
+    //     <label htmlFor="cardTrunfo">
+    //       Super Trunfo:
+    //       <input
+    //         type="checkbox"
+    //         name="cardTrunfo"
+    //         data-testid="trunfo-input"
+    //         value={ props.cardTrunfo }
+    //         onChange={ props.onInputChange }
+    //         checked={ props.cardTrunfo }
+    //       />
+    //     </label>
+    //   );
+    // }
 
     return (
       <form action="" className="form">
@@ -117,7 +117,21 @@ class Form extends Component {
           </select>
         </label>
 
-        <HandleTrunfo { ...this.props } />
+        {/* <HandleTrunfo { ...this.props } /> */}
+
+        { hasTrunfo ? <p>Você já tem um Super Trunfo em seu baralho</p>
+          : (
+            <label htmlFor="cardTrunfo">
+              Super Trunfo:
+              <input
+                type="checkbox"
+                name="cardTrunfo"
+                data-testid="trunfo-input"
+                value={ cardTrunfo }
+                onChange={ onInputChange }
+                checked={ cardTrunfo }
+              />
+            </label>)}
 
         <button
           type="submit"
