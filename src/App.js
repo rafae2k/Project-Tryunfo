@@ -14,12 +14,23 @@ class App extends React.Component {
     this.onInputChange = this.onInputChange.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
     this.removeCard = this.removeCard.bind(this);
+    this.handleFilter = this.handleFilter.bind(this);
 
-    this.state = { ...initialState, cards: [], hasTrunfo: false };
+    this.state = { ...initialState, cards: [], hasTrunfo: false, filter: [] };
   }
 
   componentDidMount() {
     document.title = 'Tryunfo';
+  }
+
+  handleFilter({ target }) {
+    const { cards } = this.state;
+    const filtered = cards.filter((card) => (
+      card.cardName.includes(target.value.toLowerCase())));
+
+    if (filtered.length > 0) {
+      this.setState({ filter: filtered });
+    }
   }
 
   onInputChange({ target }) {
@@ -119,7 +130,19 @@ class App extends React.Component {
 
         </div>
 
-        <Deck { ...this.state } onRemoveCardClick={ this.removeCard } />
+        <div>
+          <Deck { ...this.state } onRemoveCardClick={ this.removeCard } />
+          <label htmlFor="filter">
+            Filtro:
+            <input
+              type="text"
+              name="filter"
+              data-testid="name-filter"
+              onChange={ this.handleFilter }
+            />
+          </label>
+        </div>
+
       </>
     );
   }
