@@ -3,6 +3,7 @@ import { v4 as uuid } from 'uuid';
 import Card from './components/Card';
 import Form from './components/Form';
 import initialState from './initialState';
+
 import './App.css';
 
 class App extends React.Component {
@@ -93,17 +94,25 @@ class App extends React.Component {
   }
 
   render() {
+    const { cards } = this.state;
     return (
-      <div className="card-builder">
-        <Form
-          { ...this.state }
-          onInputChange={ this.onInputChange }
-          onSaveButtonClick={ this.onSaveButtonClick }
-        />
+      <>
+        <div className="card-builder">
+          <Form
+            { ...this.state }
+            onInputChange={ this.onInputChange }
+            onSaveButtonClick={ this.onSaveButtonClick }
+          />
 
-        <Card { ...this.state } />
+          <Card { ...this.state } />
 
-      </div>
+        </div>
+        <div className="card-deck">
+          Todas as Cartas
+          {cards.length > 0 ? cards.map((card) => (<Card { ...card } key={ card.id } />))
+            : <div />}
+        </div>
+      </>
     );
   }
 }
