@@ -7,7 +7,6 @@ const initialState = {
   cardImage: '',
   cardRare: 'Normal',
   cardTrunfo: '',
-  hasTrunfo: false,
   isSaveButtonDisabled: true,
 };
 

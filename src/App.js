@@ -12,7 +12,7 @@ class App extends React.Component {
     this.onInputChange = this.onInputChange.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
 
-    this.state = { ...initialState, cards: [] };
+    this.state = { ...initialState, cards: [], hasTrunfo: false };
   }
 
   componentDidMount() {
@@ -22,7 +22,7 @@ class App extends React.Component {
   onInputChange({ target }) {
     const { name } = target;
     const value = (target.type === 'checkbox') ? target.checked : target.value;
-    if (value) this.setState({ hasTrunfo: target.checked });
+
     this.setState({
       [name]: value,
     }, this.formValidation);
@@ -38,8 +38,12 @@ class App extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
-      hasTrunfo,
+      // hasTrunfo,
     } = this.state;
+
+    if (cardTrunfo) {
+      this.setState({ hasTrunfo: cardTrunfo });
+    }
 
     const createCard = { cardName,
       cardDescription,
@@ -49,7 +53,6 @@ class App extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
-      hasTrunfo,
       id: uuid(),
     };
 
@@ -57,7 +60,11 @@ class App extends React.Component {
       cards: [...prevCardList, createCard],
     }));
 
-    this.setState({ ...initialState });
+    this.setInitialState();
+  }
+
+  setInitialState(hasTrunfo) {
+    this.setState({ ...initialState, hasTrunfo });
   }
 
   formValidation() {
