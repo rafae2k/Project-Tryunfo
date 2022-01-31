@@ -14,6 +14,7 @@ class Deck extends React.Component {
             <button
               type="button"
               onClick={ () => onRemoveCardClick(card.id) }
+              data-testid="delete-button"
             >
               Excluir
             </button>
