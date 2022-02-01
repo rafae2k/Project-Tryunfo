@@ -4,14 +4,35 @@ import Card from './Card';
 
 class Deck extends React.Component {
   render() {
-    const { cards, onRemoveCardClick, filter } = this.props;
-    console.log(filter.length > 0);
+    const { cards, onRemoveCardClick, found, filter } = this.props;
 
-    if (filter.length > 0) {
+    if (found) {
       return (
+        <div style={ { display: 'flex', direction: 'column' } }>
+          <h2>Todas as Cartas</h2>
+          <section className="card-deck">
+            {filter.map((card) => (
+              <div className="card" key={ card.id }>
+                <Card { ...card } />
+                <button
+                  type="button"
+                  onClick={ () => onRemoveCardClick(card.id) }
+                  data-testid="delete-button"
+                >
+                  Excluir
+                </button>
+              </div>
+            ))}
+          </section>
+        </div>
+      );
+    }
+
+    return (
+      <div style={ { display: 'flex', direction: 'column' } }>
+        <h2>Todas as Cartas</h2>
         <section className="card-deck">
-          Todas as Cartas
-          {filter.map((card) => (
+          {cards.map((card) => (
             <div className="card" key={ card.id }>
               <Card { ...card } />
               <button
@@ -24,25 +45,7 @@ class Deck extends React.Component {
             </div>
           ))}
         </section>
-      );
-    }
-
-    return (
-      <section className="card-deck">
-        Todas as Cartas
-        {cards.map((card) => (
-          <div className="card" key={ card.id }>
-            <Card { ...card } />
-            <button
-              type="button"
-              onClick={ () => onRemoveCardClick(card.id) }
-              data-testid="delete-button"
-            >
-              Excluir
-            </button>
-          </div>
-        ))}
-      </section>
+      </div>
     );
   }
 }

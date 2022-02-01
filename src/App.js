@@ -1,11 +1,11 @@
 import React from 'react';
 import { v4 as uuid } from 'uuid';
+import initialState from './initialState';
 import Card from './components/Card';
 import Form from './components/Form';
-import initialState from './initialState';
+import Deck from './components/Deck';
 
 import './App.css';
-import Deck from './components/Deck';
 
 class App extends React.Component {
   constructor() {
@@ -16,20 +16,27 @@ class App extends React.Component {
     this.removeCard = this.removeCard.bind(this);
     this.handleFilter = this.handleFilter.bind(this);
 
-    this.state = { ...initialState, cards: [], hasTrunfo: false, filter: [] };
+    this.state = { ...initialState,
+      cards: [],
+      hasTrunfo: false,
+      filter: [],
+      found: false };
   }
 
   componentDidMount() {
     document.title = 'Tryunfo';
   }
 
-  handleFilter({ target }) {
+  handleFilter({ target: { value } }) {
     const { cards } = this.state;
-    const filtered = cards.filter((card) => (
-      card.cardName.includes(target.value.toLowerCase())));
 
-    if (filtered.length > 0) {
-      this.setState({ filter: filtered });
+    const filterByName = cards.filter(({ cardName }) => (
+      cardName.toLowerCase().includes(value.toLowerCase())));
+
+    if (filterByName.length > 0) {
+      this.setState({ filter: filterByName,
+        found: true,
+      });
     }
   }
 
@@ -130,17 +137,29 @@ class App extends React.Component {
 
         </div>
 
-        <div>
-          <Deck { ...this.state } onRemoveCardClick={ this.removeCard } />
+        <div
+          style={ {
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'self-start',
+            margin: '20px 80px',
+            gap: '20px',
+          } }
+        >
           <label htmlFor="filter">
             Filtro:
             <input
               type="text"
               name="filter"
+              value={ this.cardFilter }
               data-testid="name-filter"
               onChange={ this.handleFilter }
             />
           </label>
+          <Deck
+            { ...this.state }
+            onRemoveCardClick={ this.removeCard }
+          />
         </div>
 
       </>
